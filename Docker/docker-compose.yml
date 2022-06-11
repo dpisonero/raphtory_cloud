@@ -1,0 +1,114 @@
+version: '3'
+
+services:
+  
+  leader:
+    build: ./leader
+    expose:
+      - "1600"
+    environment:
+      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORY_PARTITION_SERVERS=1
+      - RAPHTORY_BUILDERS_PER_SERVER=1
+      - RAPHTORY_PARTITIONS_PER_SERVER=1
+      - RAPHTORY_BIND_ADDRESS=leader
+      - RAPHTORY_BIND_PORT=1600
+      - RAPHTORY_LEADER_ADDRESS=leader
+      - RAPHTORY_LEADER_PORT=1600
+      #- JAVA_OPTS=-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms2G -Xmx2G -Xss128M
+    command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component leader'"
+
+  partitionmanager:
+    build: ./partition_manager
+    depends_on:
+      - leader
+    expose:
+      - "1602"
+    environment:
+      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORY_PARTITION_SERVERS=1
+      - RAPHTORY_BUILDERS_PER_SERVER=1
+      - RAPHTORY_PARTITIONS_PER_SERVER=1
+      - RAPHTORY_BIND_ADDRESS=partitionmanager
+      - RAPHTORY_BIND_PORT=1602
+      - RAPHTORY_LEADER_ADDRESS=leader
+      - RAPHTORY_LEADER_PORT=1600
+      #- JAVA_OPTS=-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms2G -Xmx2G -Xss128M
+    command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component partitionManager'"
+
+  querymanager:
+    build: ./query_manager
+    depends_on:
+      - leader
+    expose:
+      - "1603"
+    environment:
+      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORY_PARTITION_SERVERS=1
+      - RAPHTORY_BUILDERS_PER_SERVER=1
+      - RAPHTORY_PARTITIONS_PER_SERVER=1
+      - RAPHTORY_BIND_ADDRESS=querymanager
+      - RAPHTORY_BIND_PORT=1603
+      - RAPHTORY_LEADER_ADDRESS=leader
+      - RAPHTORY_LEADER_PORT=1600
+      #- JAVA_OPTS=-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms2G -Xmx2G -Xss128M
+    command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component queryManager'"
+
+  spout:
+    build: ./spout
+    depends_on:
+      - leader
+    expose:
+      - "1604"
+    environment:
+      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORY_PARTITION_SERVERS=1
+      - RAPHTORY_BUILDERS_PER_SERVER=1
+      - RAPHTORY_PARTITIONS_PER_SERVER=1
+      - RAPHTORY_BIND_ADDRESS=spout
+      - RAPHTORY_BIND_PORT=1604
+      - RAPHTORY_LEADER_ADDRESS=leader
+      - RAPHTORY_LEADER_PORT=1600
+      #- JAVA_OPTS=-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms2G -Xmx2G -Xss128M
+    command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component spout'"
+
+  builder:
+    build: ./graphBuilder
+    depends_on:
+      - leader
+    expose:
+      - "1601"
+    environment:
+      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORY_PARTITION_SERVERS=1
+      - RAPHTORY_BUILDERS_PER_SERVER=1
+      - RAPHTORY_PARTITIONS_PER_SERVER=1
+      - RAPHTORY_BIND_ADDRESS=builder
+      - RAPHTORY_BIND_PORT=1601
+      - RAPHTORY_LEADER_ADDRESS=leader
+      - RAPHTORY_LEADER_PORT=1600
+      #- JAVA_OPTS=-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms2G -Xmx2G -Xss128M
+    command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component builder'"
+
+  
+
+  client:
+    build: ./partitionManager
+    depends_on:
+      - leader
+      - spout
+      - builder
+      - query_manager
+      - partition_manager
+    expose:
+      - "1605"
+    environment:
+      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORY_PARTITION_SERVERS=1
+      - RAPHTORY_BUILDERS_PER_SERVER=1
+      - RAPHTORY_PARTITIONS_PER_SERVER=1
+      - RAPHTORY_BIND_ADDRESS=client
+      - RAPHTORY_BIND_PORT=1605
+      - RAPHTORY_LEADER_ADDRESS=leader
+      - RAPHTORY_LEADER_PORT=1600
+    command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Client'"
