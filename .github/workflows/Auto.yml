@@ -1,0 +1,9 @@
+name: Raphtory_Deployment_Automatization
+
+on: [push, pull_request]
+  jobs:
+    Test:
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "Action launched"
+        - run: sudo apt-get install python3
