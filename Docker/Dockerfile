@@ -1,26 +1,14 @@
-# Base image with Java installed
-FROM adoptopenjdk:11
-
-# Copy the project folder into the container
-RUN mkdir /app
-ADD ./lotr_base /app/lotr_base 
-
-# Install all the packages needed for SDKMAN 
-RUN apt update
-RUN apt install zip -y
-RUN apt install curl -y
-
-# Install SDKMAN (easiest way to install SBT) 
-RUN curl -s "https://get.sdkman.io" | bash
-
-# Change into bash shell in order to run a source command
-SHELL ["/bin/bash", "-c"]
-
-# Run sdk init scripts and install SBT
-RUN source "$HOME/.sdkman/bin/sdkman-init.sh" && sdk install sbt
-
-# Modify PATH from Dockerfile in order to be able to run sbt from docker exec
-ENV PATH="/root/.sdkman/candidates/sbt/current/bin:${PATH}"
-
-# Move to project folder
-WORKDIR /app/lotr_base
+ARG JAVA_DOCKER_IMAGE_NAME=eclipse-temurin
+ARG JAVA_DOCKER_IMAGE_TAG=11.0.12_7-jdk
+ARG RUN_USER=root
+FROM ${JAVA_DOCKER_IMAGE_NAME}:${JAVA_DOCKER_IMAGE_TAG}
+ENV GOOGLE_APPLICATION_CREDENTIALS=/raphtory/key.json
+RUN mkdir -p /raphtory/
+RUN mkdir -p /raphtory/data
+RUN mkdir -p /tmp/raphtory/data/
+COPY bin/key.json /raphtory
+COPY bin/docker/raphtory/bin /raphtory/bin
+COPY tmp/raphtory/jars /raphtory/jars
+RUN chmod 777 /raphtory/bin/entrypoint.sh
+CMD /raphtory/bin/entrypoint.sh
+USER ${RUN_USER}

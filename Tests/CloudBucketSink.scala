@@ -12,12 +12,11 @@ import java.io.FileWriter
 import java.nio.file.Files
 import java.nio.file.Paths
 
-import com.google.auth.Credentials
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.ReadChannel
 import com.google.cloud.storage._
 import com.google.cloud.storage.BucketInfo
 import com.google.cloud.storage.BlobId
+import com.google.cloud.storage.Storage
+import com.google.cloud.storage.StorageOptions
 
 /** A [[com.raphtory.api.output.sink.Sink Sink]] that writes a `Table` into files using the given `format`.
   *
@@ -70,8 +69,6 @@ case class CloudBucketSink (filePath: String, projectId: String, bucketName: Str
       override def output(value: String): Unit = fileWriter.write(value)
       override def close(): Unit               = fileWriter.close()
 
-      import com.google.cloud.storage.Storage
-      import com.google.cloud.storage.StorageOptions
 
       // Instantiates a client
       val storage: Storage = StorageOptions.getDefaultInstance.getService

@@ -36,9 +36,9 @@ class CloudSpout[T: TypeTag](projectId: String, bucketName: String, objectName: 
   val storage: Storage = StorageOptions.newBuilder.setProjectId(projectId).build.getService
   val blob: Blob = storage.get(BlobId.of(bucketName, objectName))
 
-  blob.downloadTo(Paths.get("C:\\tmp\\" + objectName))
+  blob.downloadTo(Paths.get("/tmp/" + objectName))
 
-  val path: String = "C:\\tmp\\" + objectName
+  val path: String = "/tmp/" + objectName
 
   private var inputPath = Option(path).filter(_.trim.nonEmpty).getOrElse(sourceDirectory)
   // If the inputPath is not an absolute path then make an absolute path

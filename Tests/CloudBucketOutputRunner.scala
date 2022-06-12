@@ -11,7 +11,7 @@ object CloudBucketOutputRunner extends App {
   val path = "/tmp/lotr.csv"
   val url = "https://raw.githubusercontent.com/Raphtory/Data/main/lotr.csv"
 
-  FileUtils.curlFile(path, url)
+  //FileUtils.curlFile(path, url)
 
   //val source = FileSpout(path)
   val source  = CloudSpout("ardent-quarter-347510", "first-bucket-test-raphtory-mine", "lotr.csv")

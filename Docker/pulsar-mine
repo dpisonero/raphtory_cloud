@@ -1,0 +1,32 @@
+#!/bin/bash
+
+echo "Setting kube context"
+  kubectl config use-context gke_ardent-quarter-347510_europe-southwest1-a_raphtory-cluster
+  echo "Adding helm repo"
+  helm repo add apache https://pulsar.apache.org/charts
+  helm repo update
+  echo "Installing pulsar helm chart"
+  helm install -n pulsar pulsar apache/pulsar\
+    --version=2.9.2 \
+    --create-namespace \
+    --set initialize=true \
+    --set volumes.persistence=false \
+    --set affinity.anti_affinity=false \
+    --set components.autorecovery=false \
+    --set components.pulsar_manager=false \
+    --set zookeeper.replicaCount=1 \
+    --set bookkeeper.replicaCount=1 \
+    --set proxy.replicaCount=1 \
+    --set broker.replicaCount=1 \
+    --set-string broker.configData.autoSkipNonRecoverableData="true" \
+    --set-string broker.configData.managedLedgerDefaultWriteQuorum="1" \
+    --set-string broker.configData.managedLedgerDefaultAckQuorum="1" \
+    --set-string broker.configData.managedLedgerDefaultEnsembleSize="1" \
+    --set monitoring.prometheus=false \
+    --set monitoring.grafana=false \
+    --set images.zookeeper.tag=2.9.0 \
+    --set images.bookie.tag=2.9.0 \
+    --set images.autorecovery.tag=2.9.0 \
+    --set images.broker.tag=2.9.0 \
+    --set images.proxy.tag=2.9.0 \
+    --set images.functions.tag=2.9.0
