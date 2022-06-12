@@ -1,6 +1,6 @@
 name: Raphtory_Deployment_Automatization
 
-on: [push, pull_request]
+on: [push]
   jobs:
     Test:
       runs-on: ubuntu-latest
