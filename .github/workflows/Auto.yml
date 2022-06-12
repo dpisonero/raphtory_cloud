@@ -1,4 +1,4 @@
-name: Raphtory_Deployment_Automatization
+name: Raphtory-Deployment-Automatization
 
 on: [push]
   jobs:
