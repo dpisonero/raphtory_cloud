@@ -19,7 +19,7 @@ services:
     command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component leader'"
 
   partitionmanager:
-    build: ./partition_manager
+    build: ./partitionManager
     depends_on:
       - leader
     expose:
@@ -37,7 +37,7 @@ services:
     command: /bin/bash -c "sbt 'runMain com.raphtory.examples.lotr.Component partitionManager'"
 
   querymanager:
-    build: ./query_manager
+    build: ./queryManager
     depends_on:
       - leader
     expose:
@@ -79,7 +79,7 @@ services:
     expose:
       - "1601"
     environment:
-      - RAPHTORY_BUILD_SERVERS=1
+      - RAPHTORYe_BUILD_SERVERS=1
       - RAPHTORY_PARTITION_SERVERS=1
       - RAPHTORY_BUILDERS_PER_SERVER=1
       - RAPHTORY_PARTITIONS_PER_SERVER=1
@@ -93,7 +93,7 @@ services:
   
 
   client:
-    build: ./partitionManager
+    build: ./partition_manager
     depends_on:
       - leader
       - spout
