@@ -14,6 +14,6 @@ jobs:
       name: 'Authenticate to Google Cloud'
       run: |
         ls ${{ github.workspace }}
-        cd ${{ github.workspace }}
+        gcloud auth activate-service-account testupdown@ardent-quarter-347510.iam.gserviceaccount.com --key-file=/home/runner/work/raphtory_cloud/raphtory_cloudTests/key.json
         
       
