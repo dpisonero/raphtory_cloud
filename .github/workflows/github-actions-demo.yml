@@ -19,7 +19,9 @@ jobs:
         gcloud auth activate-service-account testupdown@ardent-quarter-347510.iam.gserviceaccount.com --key-file=./Tests/key.json
         gcloud config set project ardent-quarter-347510
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-        sudo ./Docker/pulsar-mine
+        dos2unix ./Docker/pulsar-mine
+        sudo chmod 777 ./Docker/pulsar-mine
+        ./Docker/pulsar-mine
         echo "Going to sleep"
         sleep(180)
         echo "Forwarding"
