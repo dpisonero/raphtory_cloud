@@ -11,18 +11,18 @@ jobs:
     
     steps:
     
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-    
-      - id: 'Pulsar'
-        name: 'Launch Pulsar'
-        run: |
-          git clone https://github.com/dpisonero/raphtory_cloud.git
-          cd ./raphtory_cloud
-          #gcloud config set project ardent-quarter-347510
-          #gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-          #sudo chmod 777 ./Docker/pulsar-mine
-          #./Docker/pulsar-mine
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.CREDENTIALS }}'
+
+    - id: 'Pulsar'
+      name: 'Launch Pulsar'
+      run: |
+        git clone https://github.com/dpisonero/raphtory_cloud.git
+        cd ./raphtory_cloud
+        #gcloud config set project ardent-quarter-347510
+        #gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+        #sudo chmod 777 ./Docker/pulsar-mine
+        #./Docker/pulsar-mine
