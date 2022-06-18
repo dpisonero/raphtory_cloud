@@ -20,11 +20,4 @@ jobs:
         gcloud config set project ardent-quarter-347510
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
         sudo chmod 777 ./Docker/pulsar-mine
-        ./Docker/pulsar-mine
-        echo "Going to sleep"
-        sleep(180)
-        echo "Forwarding"
-        kubectl port-forward service/pulsar-broker --namespace pulsar 6650:6650 &
-        kubectl port-forward service/pulsar-broker --namespace pulsar 8080:8080 &
-        kubectl port-forward service/pulsar-zookeeper --namespace pulsar 2181:2181 &
-      
+        #./Docker/pulsar-mine
