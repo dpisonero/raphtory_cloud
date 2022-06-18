@@ -1,7 +1,7 @@
 name: GitHub Actions for Raphtory Deployment
 on: [push]
 env: 
-  PROJECT_ID: ardent-quarter-347510
+  PROJECT_ID: secrets.GKE_PROJECT
   GAR_LOCATION: europe-southwest1
   GKE_CLUSTER: raphtory-cluster
   GKE_ZONE: europe-southwest1-a
@@ -14,4 +14,20 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v0'
       with:
-        credential_json: 
+        credential_json: secrets.GCP_CREDENTIALS
+        
+    - name: Clone my repository
+      run: git clone https://github.com/dpisonero/raphtory_cloud.git
+      
+    - name: Setup GKE Credentials
+      run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+      
+    - name: Launch Pulsar
+      run: |-
+        cd ./raphtory_cloud
+        ./Docker/pulsar-mine
+        kubectl port-forward service/pulsar-broker --namespace pulsar 6650:6650 &
+        kubectl port-forward service/pulsar-broker --namespace pulsar 8080:8080 &
+        kubectl port-forward service/pulsar-zookeeper --namespace pulsar 2181:2181 &
+        
+      
