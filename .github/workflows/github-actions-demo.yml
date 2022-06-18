@@ -17,6 +17,7 @@ jobs:
         git clone https://github.com/dpisonero/raphtory_cloud.git
         cd ./raphtory_cloud
         gcloud auth activate-service-account testupdown@ardent-quarter-347510.iam.gserviceaccount.com --key-file=./Tests/key.json
+        gcloud config set project "$PROJECT_ID"
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
         ./Docker/pulsar-mine
         echo "Going to sleep"
