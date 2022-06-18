@@ -12,10 +12,10 @@ jobs:
     steps:
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        token_format: 'access_token'
-        credentials_json: secrets.GCP_CREDENTIALS
+      run: |- 
+        git clone https://github.com/dpisonero/raphtory_cloud.git
+        gcloud auth activate-service-account testupdown@ardent-quarter-347510.iam.gserviceaccount.com --key-file=./raphtory_cloud/Tests/key.json
+        
         
     - name: Clone my repository
       run: git clone https://github.com/dpisonero/raphtory_cloud.git
