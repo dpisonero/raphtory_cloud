@@ -12,8 +12,7 @@ jobs:
     steps:
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
-      run: |- 
-        git clone https://github.com/dpisonero/raphtory_cloud.git
+      run:
         gcloud auth activate-service-account testupdown@ardent-quarter-347510.iam.gserviceaccount.com --key-file=./raphtory_cloud/Tests/key.json
         
         
