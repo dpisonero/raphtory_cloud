@@ -20,12 +20,15 @@ jobs:
       with:
         credentials_json: '${{ secrets.CREDENTIALS }}'
 
-    - id: 'Pulsar'
-      name: 'Launch Pulsar'
+    - id: 'Deploy'
+      name: 'Launch Pulsar and Raphtory'
       run: |
         git clone https://github.com/dpisonero/raphtory_cloud.git
         cd ./raphtory_cloud
-        #gcloud config set project ardent-quarter-347510
-        #gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-        #sudo chmod 777 ./Docker/pulsar-mine
-        #./Docker/pulsar-mine
+        gcloud config set project ardent-quarter-347510
+        gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+        sudo chmod 777 ./Docker/pulsar-mine
+        sudo chmod 777 ./Tests/setup_kubetory_Act.py
+        ./Docker/pulsar-mine
+        cd ./Tests
+        python3 ./setup_kubetory_Act.py
