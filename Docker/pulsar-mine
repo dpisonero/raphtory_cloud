@@ -32,7 +32,7 @@ echo "Setting kube context"
     --set images.functions.tag=2.9.0
 
   echo "Waiting 5 minutes to allow services to start"
-  sleep 300
+  sleep 180
 
   echo "Forwarding ports"
   kubectl port-forward service/pulsar-broker --namespace pulsar 6650:6650 &
