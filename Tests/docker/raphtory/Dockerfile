@@ -6,8 +6,8 @@ RUN mkdir -p /raphtory/
 RUN mkdir -p /raphtory/data
 RUN mkdir -p /tmp/raphtory/data/
 COPY ./Tests/docker/raphtory/bin /raphtory/bin
-COPY ./Tests/core-assembly-0.5 /raphtory/jars
-COPY ./Tests/example-lotr_2.13-0.5 /raphtory/jars
+COPY ./Tests/core-assembly-0.5.jar /raphtory/jars
+COPY ./Tests/example-lotr_2.13-0.5.jar /raphtory/jars
 RUN chmod 777 /raphtory/bin/entrypoint.sh
 CMD /raphtory/bin/entrypoint.sh
 USER ${RUN_USER}
