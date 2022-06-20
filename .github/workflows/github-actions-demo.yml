@@ -30,7 +30,7 @@ jobs:
     - id: 'Deploy'
       name: 'Launch Pulsar and Raphtory'
       run: |
-        git clone https://github.com/dpisonero/raphtory_cloud.git
+        #git clone https://github.com/dpisonero/raphtory_cloud.git
         cd ./raphtory_cloud
         sudo chmod 777 ./Tests/raphtory-docker-image
         ./Tests/raphtory-docker-image -c build -r docker.io/dpisonero -t mytag -z "./Tests/core-assembly-0.5.jar ./Tests/example-lotr_2.13-0.5.jar"
