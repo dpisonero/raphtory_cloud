@@ -52,11 +52,11 @@ JAR_PATH="tmp/raphtory/jars"
 [ -n "$JAVA_DOCKER_IMAGE_TAG" ] && DOCKER_BUILD_ARGS+=(--build-arg JAVA_DOCKER_IMAGE_TAG=$JAVA_DOCKER_IMAGE_TAG)
 [ -n "$RUN_USER" ] && DOCKER_BUILD_ARGS+=(--build-arg RUN_USER=$RUN_USER)
 
-[ -n "$JARS" ] && \
-for jar in $JARS;
-do
-  cp $jar $JAR_PATH
-done
+#[ -n "$JARS" ] && \
+#for jar in $JARS;
+#do
+#  cp $jar $JAR_PATH
+#done
 
 case $COMMAND in
   build)
