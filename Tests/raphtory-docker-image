@@ -44,7 +44,7 @@ done
 DOCKER_BUILD_ARGS=()
 DOCKERFILE="./Tests/docker/raphtory/Dockerfile"
 DOCKER_IMAGE_NAME="raphtory"
-JAR_PATH="./Tests"
+JAR_PATH="tmp/raphtory/jars"
 
 [[ ! -d $JAR_PATH ]] && mkdir -p $JAR_PATH
 [[ ( -z "$COMMAND" || -z "$DOCKER_IMAGE_TAG" || -z "$DOCKER_REPO") ]] && usage
