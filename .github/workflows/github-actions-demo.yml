@@ -1,9 +1,9 @@
 name: GitHub Actions for Raphtory Deployment
 on: [push]
 env: 
-  PROJECT_ID: ardent-quarter-347510
+  PROJECT_ID: '${{ secrets.PROJECT }}'
   GAR_LOCATION: europe-southwest1
-  GKE_CLUSTER: raphtory-cluster
+  GKE_CLUSTER: '${{ secrets.CLUSTER }}'
   GKE_ZONE: europe-southwest1-a
 jobs:
   setup-deploy:
@@ -25,10 +25,10 @@ jobs:
       run: |
         git clone https://github.com/dpisonero/raphtory_cloud.git
         cd ./raphtory_cloud
-        gcloud config set project ardent-quarter-347510
+        gcloud config set project "$PROJECT_ID"
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
         sudo chmod 777 ./Docker/pulsar-mine
         sudo chmod 777 ./Tests/setup_kubetory_Act.py
-        ./Docker/pulsar-mine
-        cd ./Tests
-        python3 ./setup_kubetory_Act.py
+        #./Docker/pulsar-mine
+        #cd ./Tests
+        #python3 ./setup_kubetory_Act.py
