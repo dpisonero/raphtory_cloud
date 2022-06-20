@@ -10,14 +10,11 @@
 
 # General env variables needed for everyone - same as in Kubernetes part
 
-
-#! /home/rodrigo/yes/bin/python
-
 import os, sys, shutil
 
 docker_image = "docker.io/dpisonero/raphtory:mytag"
-jar_name = "example-lotr_2.13-0.5.jar"
-core_jar = "core-assembly-0.5.jar"
+jar_name = "Tests/example-lotr_2.13-0.5.jar"
+core_jar = "Tests/core-assembly-0.5.jar"
 main_class = "com.raphtory.deployment.kubernetes.Deploy"
 
 
