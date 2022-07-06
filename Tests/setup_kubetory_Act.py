@@ -13,8 +13,8 @@
 import os, sys, shutil
 
 docker_image = "docker.io/dpisonero/raphtory:mytag"
-jar_name = "example-lotr_2.13-0.5.jar"
-core_jar = "core-assembly-0.5.jar"
+jar_name = "./example-lotr_2.13-0.5.jar"
+core_jar = "./core-assembly-0.5.jar"
 main_class = "com.raphtory.deployment.kubernetes.Deploy"
 
 
@@ -57,4 +57,4 @@ os.environ["RAPHTORY_COMPONENTS_GRAPHBUILDER_LOG"] = "DEBUG"
 # Change the RAM asigned to Java (Scala)
 os.environ["JAVA_OPTS"]="-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms1G -Xmx1G -Xss128M"
 
-os.system('java -cp ' + jar_name + ':' + core_jar + ' ' + main_class)
+os.system('java -cp ' + core_jar + ':' + jar_name + ' ' + main_class)
