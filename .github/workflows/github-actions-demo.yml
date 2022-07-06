@@ -29,6 +29,6 @@ jobs:
         cd ./raphtory_cloud
         sudo chmod 777 ./Docker/pulsar-mine
         sudo chmod 777 ./Tests/setup_kubetory_Act.py
-        #./Docker/pulsar-mine
+        ./Docker/pulsar-mine
         cd ./Tests
         python3 ./setup_kubetory_Act.py
