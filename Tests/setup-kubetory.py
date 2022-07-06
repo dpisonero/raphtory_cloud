@@ -10,9 +10,6 @@
 
 # General env variables needed for everyone - same as in Kubernetes part
 
-
-#! /home/rodrigo/yes/bin/python
-
 import os, sys, shutil
 
 
