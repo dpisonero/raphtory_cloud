@@ -59,4 +59,4 @@ os.environ["JAVA_OPTS"]="-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms1G
 
 #os.system('java -cp ' + core_jar + ':' + jar_name + ' ' + main_class)
 mypath = os.path.abspath(os.path.dirname(__file__))
-os.system('java -cp ' + mypath + '/' + core_jar + ':' + mypath + '/' + jar_name + ' ' + main_class)
+os.system('java -cp ' + mypath + '/' + jar_name + ':' + mypath + '/' + core_jar + ' ' + main_class)
