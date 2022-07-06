@@ -57,4 +57,5 @@ os.environ["RAPHTORY_COMPONENTS_GRAPHBUILDER_LOG"] = "DEBUG"
 # Change the RAM asigned to Java (Scala)
 os.environ["JAVA_OPTS"]="-XX:+UseShenandoahGC -XX:+UseStringDeduplication -Xms1G -Xmx1G -Xss128M"
 
-os.system('java -cp ' + core_jar + ':' + jar_name + ' ' + main_class)
+mypath = os.path.abspath(os.path.dirname(__file__))
+os.system('java -cp ' + mypath + '/' + core_jar + ':' + mypath + '/' + jar_name + ' ' + main_class)
