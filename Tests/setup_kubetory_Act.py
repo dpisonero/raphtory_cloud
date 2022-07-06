@@ -15,7 +15,7 @@ import os, sys, shutil
 docker_image = "docker.io/dpisonero/raphtory:mytag"
 jar_name = "example-lotr_2.13-0.5.jar"
 core_jar = "core-assembly-0.5.jar"
-main_class = "com.raphtory.deployment.kubernetes.Deploy"
+main_class = "com.raphtory.examples.lotrTopic.LOTRClient"
 
 
 
